@@ -64,7 +64,7 @@ class RungeKutta:
     def k3_vy(self, i):
         force_term = self.force(i) / self.mass
         velocity_term = - (self.c / self.mass) * (self.v_y[i] + self.k2_vy(i)*(self.dt/2.0))
-        position_term = - (self.k / self.mass) * (self.y[i] + self.k2_y(i)*(self.dt/2.0))
+        position_term = - (self.k / self.mass) * (self.y[i]- self.resting_length[i] + self.k2_y(i)*(self.dt/2.0))
 
         return force_term + velocity_term + position_term
 
@@ -74,7 +74,7 @@ class RungeKutta:
     def k4_vy(self, i):
         force_term = self.force(i) / self.mass
         velocity_term = - (self.c / self.mass) * (self.v_y[i] + self.dt*self.k3_vy(i))
-        position_term = - (self.k / self.mass) * (self.y[i] + self.dt*self.k3_y(i))
+        position_term = - (self.k / self.mass) * (self.y[i]- self.resting_length[i] + self.dt*self.k3_y(i))
 
         return force_term + velocity_term + position_term
 
