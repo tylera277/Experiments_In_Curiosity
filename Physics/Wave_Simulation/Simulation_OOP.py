@@ -4,9 +4,10 @@
 #
 # 25 Nov 2023
 
+import math
+
 import matplotlib
 matplotlib.use("TkAgg")
-import math
 
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
@@ -32,13 +33,15 @@ class Simulation:
 
     def run(self):
 
-        # The actual calculator
+        # The actual calculator object
         rk_sim = RungeKutta(wave_object=self.wave_object,
                             time_step_size=self.time_step_size_rungeKuttaCalculation)
 
 
+
+
         # Plotting details which I may try to tuck away into its own 
-        # object in the future
+        # object/class in the future
 
         # Create a figure and axis
         fig, ax = plt.subplots()
@@ -58,7 +61,7 @@ class Simulation:
                 self.wave_object.y_position[0] = 0
 
             self.wave_object.y_position[0], self.wave_object.y_velocity[0] = rk_sim.main(0)
-            
+
             for spring in range(1, self.wave_object.number_of_springs-1, 1):
                 
                 self.wave_object.y_position[spring], self.wave_object.y_velocity[spring] = rk_sim.main(spring)

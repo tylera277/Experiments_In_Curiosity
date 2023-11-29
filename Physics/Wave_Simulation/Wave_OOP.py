@@ -5,8 +5,6 @@ import numpy as np
 
 class Wave:
 
-    import numpy as np
-
     def __init__(self, *args):
         self.number_of_springs, self.distance_btwn_points, \
         self.spring_constant, self.mass, self.standard_length_of_spring, \
@@ -19,7 +17,10 @@ class Wave:
         self.y_position = np.zeros(self.number_of_springs)
         self.y_velocity = np.zeros(self.number_of_springs)
         self.x_position = np.linspace(0, self.total_x_length, self.number_of_springs)
-        self.resting_length = np.ones(self.number_of_springs)
+        self.resting_length = np.zeros(self.number_of_springs)
 
         # Not needed at the moment
         #self.x_velocity = np.zeros(number_of_springs)
+
+    def change_resting_length(self):
+        pass
