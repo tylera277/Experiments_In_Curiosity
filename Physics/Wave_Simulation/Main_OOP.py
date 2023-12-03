@@ -26,7 +26,7 @@ from Simulation_OOP import Simulation
 ######   USER-CHOSEN PARAMETERS   #########
 
     ## Chosen parameters of wave
-number_of_springs = 40
+number_of_springs = 20
 distance_btwn_points = 0.1
 spring_constant = 1
 mass = 0.1

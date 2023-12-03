@@ -45,32 +45,47 @@ class Simulation:
 
         # Create a figure and axis
         fig, ax = plt.subplots()
-        points, = ax.plot(self.wave_object.x_position[:], self.wave_object.y_position[:], 'o')
+        points, = ax.plot(self.wave_object.spring_list[0].get_x_position(), 
+                          self.wave_object.spring_list[0].get_y_position(), 'o')
 
         # Set plot limits
         ax.set_xlim(self.plot_x_axis_range[0], self.plot_x_axis_range[1])
         ax.set_ylim(self.plot_y_axis_range[0], self.plot_y_axis_range[1])
 
         def update(frame):
-
+            # Clear position information arrays
+            y_position = []
+            x_position = []
 
             if frame < 30:
-                self.wave_object.y_velocity[0] = 20 * math.sin(2 * math.pi * frame * (1/30))
+                self.wave_object.spring_list[0].set_y_velocity(20 * math.sin(2 * math.pi * frame * (1/30)))
             else:
-                self.wave_object.y_velocity[0] = 0
-                self.wave_object.y_position[0] = 0
+                self.wave_object.spring_list[0].set_y_velocity(0)
+                self.wave_object.spring_list[0].set_y_position(0)
 
-            self.wave_object.y_position[0], self.wave_object.y_velocity[0] = rk_sim.main(0)
+            self.wave_object.spring_list[0].y_position, 
+            self.wave_object.spring_list[0].y_velocity = rk_sim.main(0)
+
+            print("y0: ", self.wave_object.spring_list[0].get_y_position())
 
             for spring in range(1, self.wave_object.number_of_springs-1, 1):
-                
-                self.wave_object.y_position[spring], self.wave_object.y_velocity[spring] = rk_sim.main(spring)
 
+                type(self.wave_object.spring_list[spring].get_y_velocity())
 
+                temp_y_pos, temp_y_vel = rk_sim.main(spring)
+
+                self.wave_object.spring_list[spring].set_y_position(temp_y_pos)
+                self.wave_object.spring_list[spring].set_y_velocity(temp_y_vel)
+
+                y_position.append(self.wave_object.spring_list[spring].get_y_position())
+                x_position.append(self.wave_object.spring_list[spring].get_x_position())
+
+            #print(self.wave_object.spring_list[0].get_y_position())
             # Update the plot with new positions
-            points.set_data(self.wave_object.x_position[0:self.wave_object.number_of_springs-1], \
-                            self.wave_object.y_position[0:self.wave_object.number_of_springs-1])
-
+            x_position.append(self.wave_object.spring_list[0].get_x_position())
+            y_position.append(self.wave_object.spring_list[0].get_y_position())
+            points.set_data(x_position[:], y_position[:])
+            
             return points,
 
 
