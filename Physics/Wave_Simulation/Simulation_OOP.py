@@ -38,8 +38,6 @@ class Simulation:
                             time_step_size=self.time_step_size_rungeKuttaCalculation)
 
 
-
-
         # Plotting details which I may try to tuck away into its own 
         # object/class in the future
 
@@ -63,14 +61,12 @@ class Simulation:
                 self.wave_object.spring_list[0].set_y_velocity(0)
                 self.wave_object.spring_list[0].set_y_position(0)
 
-            self.wave_object.spring_list[0].y_position, 
-            self.wave_object.spring_list[0].y_velocity = rk_sim.main(0)
+            temp_y0_pos, temp_y0_vel = rk_sim.main(0)
 
-            print("y0: ", self.wave_object.spring_list[0].get_y_position())
+            self.wave_object.spring_list[0].set_y_position(temp_y0_pos)
+            self.wave_object.spring_list[0].set_y_velocity(temp_y0_vel)
 
             for spring in range(1, self.wave_object.number_of_springs-1, 1):
-
-                type(self.wave_object.spring_list[spring].get_y_velocity())
 
                 temp_y_pos, temp_y_vel = rk_sim.main(spring)
 
