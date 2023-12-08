@@ -33,10 +33,18 @@ class Wave:
         
         for spring in range(0, self.number_of_springs-1, 1):
 
-            spring_list.append( Spring(self.x_position[spring], 0, 0, self.mass,
-                                      1, 1, self.spring_constant, self.damping_coefficient) )
-    
-        return spring_list
+            if (spring >= int(self.number_of_springs / 2.0)):
+                length_value = ((-2 * self.standard_length_of_spring) / self.number_of_springs) * \
+                    spring + (2 * self.standard_length_of_spring)
+            
+            else:
+                length_value = 0
+
+            spring_list.append( Spring(self.x_position[spring], 0, 0, self.standard_length_of_spring-length_value,
+                                       self.mass,
+                                       length_value, 1, 
+                                       self.spring_constant, self.damping_coefficient) )
+        return spring_list                 
 
         
     def initialize_starting_position_base_of_spring(self):

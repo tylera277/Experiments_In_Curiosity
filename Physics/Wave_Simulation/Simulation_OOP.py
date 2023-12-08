@@ -35,7 +35,8 @@ class Simulation:
 
         # The actual calculator object
         rk_sim = RungeKutta(wave_object=self.wave_object,
-                            time_step_size=self.time_step_size_rungeKuttaCalculation)
+                            time_step_size=self.time_step_size_rungeKuttaCalculation,
+                            testing=False)
 
 
         # Plotting details which I may try to tuck away into its own 
@@ -49,7 +50,11 @@ class Simulation:
         # Set plot limits
         ax.set_xlim(self.plot_x_axis_range[0], self.plot_x_axis_range[1])
         ax.set_ylim(self.plot_y_axis_range[0], self.plot_y_axis_range[1])
-
+        
+        #self.wave_object.spring_list[0].set_y_position(3)
+        #y_position = []
+        #x_position = []
+        
         def update(frame):
             # Clear position information arrays
             y_position = []
@@ -84,7 +89,7 @@ class Simulation:
             
             return points,
 
-
+        #plt.plot(x_position, y_position)
         ani = FuncAnimation(fig, update, frames=self.number_of_frames, interval=self.display_time,
                     blit=False, repeat=False)
         plt.show()

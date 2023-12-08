@@ -32,8 +32,10 @@ class RungeKutta:
 
         self.y = wo_1.y_position
         self.v_y = wo_1.y_velocity
-
+        
+        
         # Systems constants/parameters
+        self.origin = wo_1.starting_origin_of_spring
         self.c = wo_1.damping_coefficient
         self.k = wo_1.spring_constant
         self.mass = wo_1.mass
@@ -111,5 +113,5 @@ class RungeKutta:
             #diff = self.y[spot-1] - self.y[spot+1]
             #return (diff - self.y[spot])
             #
-            # 'print(previous_spring.get_y_position() - self.wo.spring_list[spot].resting_length)
+            # 'p            rint(previous_spring.get_y_position() - self.wo.spring_list[spot].resting_length)
             return (previous_spring.get_y_position() - self.wo.spring_list[spot].resting_length)
