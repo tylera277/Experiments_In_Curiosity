@@ -25,8 +25,8 @@ from Simulation_OOP import Simulation
 ###########################################
 ######   USER-CHOSEN PARAMETERS   #########
 
-    ## Chosen parameters of wave
-number_of_springs = 20
+    ## Chosen parameters of wave and each spring
+number_of_springs = 50
 distance_btwn_points = 0.1
 spring_constant = 1
 mass = 0.1
@@ -34,7 +34,7 @@ standard_length_of_spring = 1
 damping_coefficient = math.sqrt(4 * mass * spring_constant) # Critically damped condition
 
     ## Chosen parameters of simulation/plot
-number_of_frames = 100
+number_of_frames = 500
 display_time_for_each_frame = 100 #(in milliseconds)
 time_step_size_rungeKuttaCalculation = 0.1
 total_time_rungeKuttaCalculation = 10

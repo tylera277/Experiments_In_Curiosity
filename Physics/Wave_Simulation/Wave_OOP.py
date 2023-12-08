@@ -39,7 +39,7 @@ class Wave:
             
             else:
                 length_value = 0
-
+        
             spring_list.append( Spring(self.x_position[spring], 0, 0, self.standard_length_of_spring-length_value,
                                        self.mass,
                                        length_value, 1, 

@@ -9,6 +9,7 @@ import math
 import matplotlib
 matplotlib.use("TkAgg")
 
+import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.animation import FuncAnimation
 
@@ -50,16 +51,17 @@ class Simulation:
         # Set plot limits
         ax.set_xlim(self.plot_x_axis_range[0], self.plot_x_axis_range[1])
         ax.set_ylim(self.plot_y_axis_range[0], self.plot_y_axis_range[1])
-        
-        #self.wave_object.spring_list[0].set_y_position(3)
-        #y_position = []
-        #x_position = []
-        
+
+        plotting_x_position = np.zeros((self.wave_object.number_of_springs, self.number_of_frames))
+        plotting_y_position = np.zeros((self.wave_object.number_of_springs, self.number_of_frames))
+
         def update(frame):
             # Clear position information arrays
             y_position = []
             x_position = []
 
+            # Manually moving the first spring, introducing the energy into the system
+            # that way
             if frame < 30:
                 self.wave_object.spring_list[0].set_y_velocity(20 * math.sin(2 * math.pi * frame * (1/30)))
             else:
@@ -81,17 +83,25 @@ class Simulation:
                 y_position.append(self.wave_object.spring_list[spring].get_y_position())
                 x_position.append(self.wave_object.spring_list[spring].get_x_position())
 
-            #print(self.wave_object.spring_list[0].get_y_position())
+                plotting_x_position[spring][frame] = self.wave_object.spring_list[spring].get_x_position()
+                plotting_y_position[spring][frame] = self.wave_object.spring_list[spring].get_y_position()
+
             # Update the plot with new positions
             x_position.append(self.wave_object.spring_list[0].get_x_position())
             y_position.append(self.wave_object.spring_list[0].get_y_position())
             points.set_data(x_position[:], y_position[:])
-            
+
+            # Useful for creating plots to showcase the differences in parameters/condition
+            #plt.scatter(plotting_x_position[:][:], plotting_y_position[:][:])
+
+
             return points,
 
-        #plt.plot(x_position, y_position)
+        
         ani = FuncAnimation(fig, update, frames=self.number_of_frames, interval=self.display_time,
                     blit=False, repeat=False)
+        
+
         plt.show()
     
         
